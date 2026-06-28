@@ -1,0 +1,17 @@
+# Scale-Balanced Loss (SBL) hyperparameters — Table 1 of the paper.
+# Read by ultralytics/utils/loss.py when the SBL-wired v8DetectionLoss is active.
+# alpha_r : regression-suppression decay (Eq. 15)
+# beta_c  : max classification enhancement (Eq. 16)
+# gamma_c : classification-enhancement decay (Eq. 16)
+# gamma_dfl : fixed DFL weight (Eq. 17)
+sbl:
+  enabled: true
+  alpha_r: 5.0e-4
+  beta_c: 1.0
+  gamma_c: 800
+  gamma_dfl: 1.5
+# shared across HERIDAL / AFO / TinyPerson (no per-dataset over-tuning).
+# search ranges used for tuning:
+#   alpha_r in {2.5e-4, 5.0e-4, 1.0e-3}
+#   beta_c  in {0.5, 1.0, 2.0}
+#   gamma_c in {400, 800, 1600}

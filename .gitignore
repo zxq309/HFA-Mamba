@@ -1,0 +1,19 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.ipynb_checkpoints/
+# data, outputs, checkpoints (not tracked)
+datasets/
+output_dir/
+runs/
+*.pt
+*.pth
+# selective_scan build artifacts
+selective_scan/build/
+*.so
+# misc
+.DS_Store
+.vscode/
+.idea/

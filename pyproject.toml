@@ -1,0 +1,33 @@
+# Editable-install config for the vendored ultralytics fork (HFA-Mamba).
+# Mirrors Mamba-YOLO's pyproject in spirit; if overlaying onto a Mamba-YOLO clone,
+# keep the upstream pyproject.toml. Install with:  pip install -v -e .
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hfa-mamba"
+version = "1.0.0"
+description = "High-Frequency-Aware Mamba for Tiny Person Detection in Aerial Images"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "AGPL-3.0" }
+dependencies = [
+  "torch>=2.3.0",
+  "torchvision",
+  "numpy",
+  "opencv-python",
+  "pyyaml",
+  "scipy",
+  "tqdm",
+  "matplotlib",
+  "pandas",
+  "seaborn",
+  "thop",
+  "timm",
+  "einops",
+  "pycocotools",
+]
+
+[tool.setuptools.packages.find]
+include = ["ultralytics*"]
