@@ -12,11 +12,11 @@ Official implementation of **"High-Frequency-Aware Mamba for Tiny Person Detecti
 
 HFA-Mamba jointly integrates **high-resolution representation learning**, **frequency-domain feature enhancement**, and **scale-aware objective reweighting** to detect small, low-contrast persons in wide-area aerial imagery (search-and-rescue, public-safety, disaster-response).
 
-> 🔧 **This repo is a fork of [Mamba-YOLO](https://github.com/HZAI-ZJNU/Mamba-YOLO)** (AAAI 2025). It keeps Mamba-YOLO's layout (`ultralytics/` vendored fork, `selective_scan/` CUDA ext, `mbyolo_train.py` entry) and adds two novel pieces — the **High-Frequency Refocus Module (HFRM)** and the **Scale-Balanced Loss (SBL)**. Both are injected **at runtime**, so **no upstream file is modified**. One command (`build_with_mambayolo.sh`) produces the complete tree. See **[SETUP.md](SETUP.md)** and **[docs/integration.md](docs/integration.md)**.
+> This repo is a fork of [Mamba-YOLO](https://github.com/HZAI-ZJNU/Mamba-YOLO) (AAAI 2025). It keeps Mamba-YOLO's layout (`ultralytics/` vendored fork, `selective_scan/` CUDA ext, `mbyolo_train.py` entry) and adds two novel pieces -- the **High-Frequency Refocus Module (HFRM)** and the **Scale-Balanced Loss (SBL)**. Both are injected **at runtime**, so **no upstream file is modified**. One command (`build_with_mambayolo.sh`) produces the complete tree. See **[SETUP.md](SETUP.md)** and **[docs/integration.md](docs/integration.md)**.
 
 ---
 
-## 🔥 News
+## News
 
 * **2026-06**: Paper submitted to *Pattern Recognition*. Code, configs, and real-world UAV test samples released.
 * `Coming soon`: arXiv preprint; ONNX / TensorRT export for onboard UAV deployment.
@@ -35,10 +35,10 @@ On **HERIDAL**, **AFO**, and **TinyPerson**, HFA-Mamba improves mAP@0.5:0.95 ove
 
 ## Highlights
 
-* **🌊 Frequency-domain view of tiny objects (HFRM).** Treats small, low-contrast persons as *high-frequency events*; separates and amplifies the high-frequency band *while the information is still present*. Detector-agnostic — `(B,C,H,W) → (B,C,H,W)`.
-* **🧠 High-resolution Mamba backbone.** Limits spatial downsampling while keeping linear-complexity global context, preserving the fine cues small-object detection depends on.
-* **⚖️ Scale-Balanced Loss (SBL).** Asymmetric, image-normalized reweighting: **boosts classification** for small objects, **damps unstable regression/DFL** gradients from tiny noisy boxes.
-* **✅ Low cost.** On AFO, +3.54 mAP@0.5:0.95 with **fewer params (15.85M vs 16.31M)** and **higher FPS (156 vs 153)**.
+* **Frequency-domain view of tiny objects (HFRM).** Treats small, low-contrast persons as *high-frequency events*; separates and amplifies the high-frequency band *while the information is still present*. Detector-agnostic -- `(B,C,H,W) -> (B,C,H,W)`.
+* **High-resolution Mamba backbone.** Limits spatial downsampling while keeping linear-complexity global context, preserving the fine cues small-object detection depends on.
+* **Scale-Balanced Loss (SBL).** Asymmetric, image-normalized reweighting: **boosts classification** for small objects, **damps unstable regression/DFL** gradients from tiny noisy boxes.
+* **Low cost.** On AFO, +3.54 mAP@0.5:0.95 with **fewer params (15.85M vs 16.31M)** and **higher FPS (156 vs 153)**.
 
 ---
 
@@ -46,7 +46,7 @@ On **HERIDAL**, **AFO**, and **TinyPerson**, HFA-Mamba improves mAP@0.5:0.95 ove
 
 > Four key figures (export from the manuscript into [`asserts/`](asserts/); filenames in `asserts/README.md`).
 
-**Overall architecture (Fig. 2)** — high-resolution Mamba backbone → frequency-domain neck (PANet + HFRM) → decoupled head with SBL.
+**Overall architecture (Fig. 2)** -- high-resolution Mamba backbone -> frequency-domain neck (PANet + HFRM) -> decoupled head with SBL.
 
 <p align="center"><img src="asserts/architecture.png" width="92%"></p>
 
@@ -54,7 +54,7 @@ On **HERIDAL**, **AFO**, and **TinyPerson**, HFA-Mamba improves mAP@0.5:0.95 ove
 |:---:|:---:|
 | <img src="asserts/hfrm.png" width="100%"> | <img src="asserts/heatmap.png" width="100%"> |
 
-**Qualitative results on AFO (Fig. 8)** — HFA-Mamba recovers small, low-contrast maritime targets that the baselines miss.
+**Qualitative results on AFO (Fig. 8)** -- HFA-Mamba recovers small, low-contrast maritime targets that the baselines miss.
 
 <p align="center"><img src="asserts/afo.png" width="92%"></p>
 
@@ -62,7 +62,7 @@ On **HERIDAL**, **AFO**, and **TinyPerson**, HFA-Mamba improves mAP@0.5:0.95 ove
 
 ## Main Results
 
-> Best / second-best in **bold** / <u>underline</u>; ↑ = gain over Mamba-YOLO-B. Single RTX 4090 (24 GB), COCO protocol. Input: HERIDAL `1536`, AFO `2160`, TinyPerson `1024`. Model links point to the config (no weights hosted).
+> Best / second-best in **bold** / <u>underline</u>; up = gain over Mamba-YOLO-B. Single RTX 4090 (24 GB), COCO protocol. Input: HERIDAL `1536`, AFO `2160`, TinyPerson `1024`. Model links point to the config (no weights hosted).
 
 ### Accuracy (selected; full Table 2 in the paper)
 
@@ -73,25 +73,25 @@ On **HERIDAL**, **AFO**, and **TinyPerson**, HFA-Mamba improves mAP@0.5:0.95 ove
 | RT-DETR-l | 40.71 | 49.01 | 15.67 |
 | HS-FPN | 40.74 | 49.25 | 15.59 |
 | Mamba-YOLO-B (baseline) | <u>41.31</u> | <u>49.42</u> | <u>15.68</u> |
-| **[HFA-Mamba-B](ultralytics/cfg/models/hfa-mamba/HFA-Mamba-B.yaml)** | **41.77** <sub>↑0.46</sub> | **52.96** <sub>↑3.54</sub> | **16.10** <sub>↑0.42</sub> |
+| **[HFA-Mamba-B](ultralytics/cfg/models/hfa-mamba/HFA-Mamba-B.yaml)** | **41.77** up+0.46 | **52.96** up+3.54 | **16.10** up+0.42 |
 
 ### Speed (Table 3, AFO)
 
 | Method | Params (M) | GFLOPs | Latency (ms) | FPS |
 |:---|:---:|:---:|:---:|:---:|
 | Mamba-YOLO-B | 16.31 | 36.11 | 6.53 | 153.07 |
-| **HFA-Mamba-B** | **15.85** | 36.95 | **6.41** <sub>↓0.12</sub> | **156.04** <sub>↑2.97</sub> |
+| **HFA-Mamba-B** | **15.85** | 36.95 | **6.41** down0.12 | **156.04** up+2.97 |
 
 ### Core-component ablation (Table 4, AFO)
 
-| Model | HFRM | SBL | Recall | mAP@.5:.95 | AP<sub>S</sub> | Config |
+| Model | HFRM | SBL | Recall | mAP@.5:.95 | AP_S | Config |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---|
 | A | | | 89.1 | 49.42 | 26.5 | `ablation/HFA-Mamba-B_baseline.yaml` (SBL off) |
-| B | ✓ | | 89.8 | 51.84 | 29.1 | `HFA-Mamba-B.yaml` (SBL off) |
-| C | | ✓ | 90.5 | 51.55 | 28.8 | `ablation/HFA-Mamba-B_baseline.yaml` (SBL on) |
-| **D** | ✓ | ✓ | **90.7** | **52.96** | **30.4** | `HFA-Mamba-B.yaml` (SBL on) |
+| B | Y | | 89.8 | 51.84 | 29.1 | `HFA-Mamba-B.yaml` (SBL off) |
+| C | | Y | 90.5 | 51.55 | 28.8 | `ablation/HFA-Mamba-B_baseline.yaml` (SBL on) |
+| **D** | Y | Y | **90.7** | **52.96** | **30.4** | `HFA-Mamba-B.yaml` (SBL on) |
 
-Full ablations (HFRM radius `r`, SBL sensitivity, HFRM placement, SBL vs SD Loss / NWD) → [docs/ablations.md](docs/ablations.md).
+Full ablations (HFRM radius `r`, SBL sensitivity, HFRM placement, SBL vs SD Loss / NWD): see [docs/ablations.md](docs/ablations.md).
 
 ---
 
@@ -123,7 +123,7 @@ Details / manual overlay / pinning a commit: **[SETUP.md](SETUP.md)**.
 ### 2. Data Preparation
 
 Convert HERIDAL / AFO / TinyPerson to YOLO format and point the dataset YAMLs at
-them — see [docs/data_process.md](docs/data_process.md). Dataset configs live in
+them -- see [docs/data_process.md](docs/data_process.md). Dataset configs live in
 [`ultralytics/cfg/datasets/`](ultralytics/cfg/datasets/).
 
 ### 3. Training
@@ -136,8 +136,8 @@ python mbyolo_train.py --task train \
   --project ./output_dir/afo --name hfa_mamba_b
 ```
 
-Recipe (paper §4.1): AdamW, lr `1e-3`, weight decay `5e-4`, 100 epochs, batch 16,
-Mosaic + MixUp + random affine. SBL defaults `αR=5e-4, βC=1.0, γC=800`
+Recipe (paper Section 4.1): AdamW, lr `1e-3`, weight decay `5e-4`, 100 epochs, batch 16,
+Mosaic + MixUp + random affine. SBL defaults `alpha_r=5e-4, beta_c=1.0, gamma_c=800`
 ([`hfa-mamba/sbl.yaml`](ultralytics/cfg/models/hfa-mamba/sbl.yaml)), shared across datasets.
 
 Swap `--data`/`--imgsz` for HERIDAL (`1536`) or TinyPerson (`1024`).
@@ -167,42 +167,42 @@ merges it with the Mamba-YOLO base to produce the full tree.
 
 ```
 HFA-Mamba/                              # overlay on Mamba-YOLO
-├── README.md / SETUP.md / LICENSE / pyproject.toml
-├── build_with_mambayolo.sh            # clone base + overlay -> complete tree
-├── mbyolo_train.py                    # entry point; injects HFRM + SBL at runtime
-├── asserts/                           # 4 key README figures (Mamba-YOLO naming)
-├── selective_scan/                    # placeholder (real ext comes from the base)
-├── tests/test_hfrm_sbl.py             # unit tests for the two novel modules
-├── docs/
-│   ├── integration.md                 # runtime injection (zero upstream edits)
-│   ├── data_process.md
-│   └── ablations.md                   # reproduce Tables 4–8
-└── ultralytics/                       # additive files only
-    ├── nn/modules/hfrm.py             # ★ HFRM (Eqs. 8–14), channel-agnostic
-    ├── utils/sbl.py                   # ★ SBL weights + SBLDetectionLoss (Eqs. 15–20)
-    └── cfg/
-        ├── datasets/{heridal,afo,tinyperson}.yaml
-        └── models/hfa-mamba/
-            ├── HFA-Mamba-{T,B,L}.yaml  # paper evaluates -B
-            ├── sbl.yaml                # Table 1 hyperparameters
-            └── ablation/               # Models A–D, Table 8 HFRM placements
+|--- README.md / SETUP.md / LICENSE / pyproject.toml
+|--- build_with_mambayolo.sh            # clone base + overlay -> complete tree
+|--- mbyolo_train.py                    # entry point; injects HFRM + SBL at runtime
+|--- asserts/                           # 4 key README figures (Mamba-YOLO naming)
+|--- selective_scan/                    # placeholder (real ext comes from the base)
+|--- tests/test_hfrm_sbl.py             # unit tests for the two novel modules
+|--- docs/
+|    |--- integration.md                # runtime injection (zero upstream edits)
+|    |--- data_process.md
+|    |--- ablations.md                  # reproduce Tables 4-8
+|    ultralytics/                       # additive files only
+|        |-- nn/modules/hfrm.py         # [core] HFRM (Eqs. 8-14), channel-agnostic
+|        |-- utils/sbl.py               # [core] SBL weights + SBLDetectionLoss (Eqs. 15-20)
+|        |-- cfg/
+|            |-- datasets/{heridal,afo,tinyperson}.yaml
+|            |-- models/hfa-mamba/
+|                |-- HFA-Mamba-{T,B,L}.yaml  # paper evaluates -B
+|                |-- sbl.yaml                # Table 1 hyperparameters
+|                |-- ablation/               # Models A-D, Table 8 HFRM placements
 ```
 
-★ = self-contained, runnable, framework-independent (PyTorch-only) contributions.
+[core] = self-contained, runnable, framework-independent (PyTorch-only) contributions.
 
 ---
 
 ## FAQ
 
-**Do HFRM / SBL need the CUDA selective-scan kernels?** No — both are pure PyTorch.
+**Do HFRM / SBL need the CUDA selective-scan kernels?** No -- both are pure PyTorch.
 The kernels are only for the Mamba backbone blocks (`XSSBlock` / `VSSBlock`).
 
 **Why `r/H' = 0.20`?** It empirically balances retaining target detail vs
-suppressing background on the AFO validation set (Table 6) — tune per
+suppressing background on the AFO validation set (Table 6) -- tune per
 dataset/resolution; not a universal constant.
 
 **Can I reuse HFRM / SBL in plain YOLOv8 / RT-DETR?** Yes; see
-[docs/integration.md](docs/integration.md) §3.
+[docs/integration.md](docs/integration.md) Section 3.
 
 ---
 
@@ -213,7 +213,7 @@ is modified from [Ultralytics](https://github.com/ultralytics/ultralytics); the
 selective-scan is from [VMamba](https://github.com/MzeroMiko/VMamba). Datasets:
 [HERIDAL](http://ipsar.fesb.unist.hr/HERIDAL%20database.html),
 [AFO](https://www.kaggle.com/datasets/jangsienicajzkowy/afo-aerial-dataset-of-floating-objects),
-[TinyPerson](https://github.com/ucas-vg/TinyBenchmark). We thank them.
+[TinyPerson](https://github.com/ucas-vg/TinyBenchmark). We thank them for their contributions.
 
 Supported in part by the National Natural Science Foundation of China (Nos.
 62171381, 62366053), the Youth Project of the Natural Science Basic Research

@@ -3,10 +3,10 @@
 ZERO upstream edits: this script injects the two HFA-Mamba contributions into the
 vendored Mamba-YOLO / Ultralytics fork *at runtime*:
 
-  1. HFRM  — registered by name so the model YAML parser can resolve it. HFRM is
+  1. HFRM  -- registered by name so the model YAML parser can resolve it. HFRM is
      channel-agnostic and preserves channels, so the parser's default branch
      handles it without any change to ``parse_model``.
-  2. SBL   — installed by overriding the model's ``init_criterion`` to return
+  2. SBL   -- installed by overriding the model's ``init_criterion`` to return
      ``SBLDetectionLoss`` (reads hyperparameters from sbl.yaml).
 
 Because the vendored fork is installed editable (``pip install -v -e .``),

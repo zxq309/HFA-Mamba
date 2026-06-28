@@ -4,7 +4,7 @@ HFA-Mamba is a fork of [Mamba-YOLO](https://github.com/HZAI-ZJNU/Mamba-YOLO)
 (AAAI 2025), which provides the `ultralytics/` source and the `selective_scan/`
 CUDA extension. This repo ships only the HFA-Mamba **additions** (HFRM, SBL,
 configs). Because HFRM and SBL are injected **at runtime** by `mbyolo_train.py`,
-**no upstream file is modified** — integration is just "clone base + copy our files".
+**no upstream file is modified** -- integration is just "clone base + copy our files".
 
 ## Recommended: one command
 

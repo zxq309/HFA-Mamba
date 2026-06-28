@@ -1,8 +1,8 @@
-# Integration — how HFRM and SBL plug into Mamba-YOLO
+# Integration -- how HFRM and SBL plug into Mamba-YOLO
 
 This repo is a fork of [Mamba-YOLO](https://github.com/HZAI-ZJNU/Mamba-YOLO)
-(which vendors a fork of Ultralytics). HFA-Mamba adds exactly two novel pieces —
-the **HFRM** module and the **Scale-Balanced Loss (SBL)** — plus the model/dataset
+(which vendors a fork of Ultralytics). HFA-Mamba adds exactly two novel pieces --
+the **HFRM** module and the **Scale-Balanced Loss (SBL)** -- plus the model/dataset
 configs.
 
 ## The default path: runtime injection (ZERO upstream edits)
@@ -43,8 +43,8 @@ modified**. This is what `build_with_mambayolo.sh` relies on.
 `SBLDetectionLoss` (in `ultralytics/utils/sbl.py`) subclasses `v8DetectionLoss` and
 reuses its assigner, anchors, box decoding, BCE and `bbox_loss`. The only change is
 two per-positive weights keyed on the image-normalized target-box area:
-classification BCE × `lambda_cls` (boost small), regression weight × `lambda_reg`
-(suppress tiny — drives both CIoU and DFL, matching Eq. 17).
+classification BCE x `lambda_cls` (boost small), regression weight x `lambda_reg`
+(suppress tiny -- drives both CIoU and DFL, matching Eq. 17).
 
 > Targets the Ultralytics 8.x loss API. If your vendored fork's `v8DetectionLoss`
 > differs, re-sync the body of `SBLDetectionLoss.__call__` with it (the math is the
@@ -74,13 +74,13 @@ feat = HFRM(radius_ratio=0.20)(feat)            # (B,C,H,W) -> (B,C,H,W)
 from ultralytics.utils.sbl import lambda_cls, lambda_reg
 ```
 
-## Difference from SD Loss / NWD (paper §4.5)
+## Difference from SD Loss / NWD (paper Section 4.5)
 
 - **SD Loss** reweights *within* the regression loss (IoU vs center-distance);
   classification untouched.
 - **NWD** swaps the IoU metric for a Gaussian-Wasserstein distance.
 - **SBL** reweights *across the two heads* (cls vs reg+DFL) with two independent,
-  smooth, image-normalized functions — decoupled, not forced to trade off.
+  smooth, image-normalized functions -- decoupled, not forced to trade off.
 
 On AFO, shared baseline: SBL 51.55 vs SD Loss 50.74 vs baseline 49.42
 mAP@0.5:0.95; full framework 52.96 (SBL) vs 52.90 (NWD) vs 52.18 (SD Loss). Table 7.

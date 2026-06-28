@@ -4,7 +4,7 @@
 #
 # Produces a COMPLETE, runnable HFA-Mamba tree by integrating this overlay with
 # the official Mamba-YOLO source. Because HFRM and SBL are injected at runtime by
-# mbyolo_train.py, this script does NOT patch any upstream file — it only clones
+# mbyolo_train.py, this script does NOT patch any upstream file -- it only clones
 # the base and copies the HFA-Mamba additions on top.
 #
 # Usage:
